@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Analítico - El Café de Tere</title>
+    <style>
+        :root {
+            --primary-color: #A0522D; /* Marrón para el café */
+            --secondary-color: #FFD700; /* Dorado para destacar */
+            --background-color: #F8F8F8;
+            --card-background: #FFFFFF;
+            --text-color: #333333;
+            --red-alert: #E74C3C;
+            --yellow-alert: #F39C12;
+            --green-alert: #2ECC71;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header p {
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            grid-column: span 1;
+        }
+
+        .card.full-width {
+            grid-column: span 3;
+        }
+
+        .card h2 {
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 2em;
+            color: var(--primary-color);
+        }
+
+        /* --- Correlación --- */
+        .correlation-item {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .correlation-item strong {
+            color: var(--green-alert); /* Fuerte */
+        }
+
+        /* --- Matriz de Prioridades (Semáforo) --- */
+        .priority-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .priority-item {
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .priority-item.red {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 5px solid var(--red-alert);
+        }
+
+        .priority-item.yellow {
+            background-color: rgba(243, 156, 18, 0.1);
+            border-left: 5px solid var(--yellow-alert);
+        }
+
+        .priority-item.green {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 5px solid var(--green-alert);
+        }
+
+        .priority-item h3 {
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+
+        .red h3 { color: var(--red-alert); }
+        .yellow h3 { color: var(--yellow-alert); }
+        .green h3 { color: var(--green-alert); }
+        
+        /* --- Heatmap Simplificado --- */
+        .heatmap-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        .heatmap-table th, .heatmap-table td {
+            padding: 8px;
+            border: 1px solid #eee;
+        }
+        .heatmap-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .h-cell.high {
+            background-color: rgba(160, 82, 45, 0.8); /* Alto impacto */
+            color: white;
+            font-weight: bold;
+        }
+        .h-cell.medium {
+            background-color: rgba(160, 82, 45, 0.4); /* Medio impacto */
+        }
+        .h-cell.low {
+            background-color: rgba(160, 82, 45, 0.1); /* Bajo impacto */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Dashboard de Inteligencia de Negocios</h1>
+        <p>Análisis de Conversación Social y Percepción de Marca</p>
+    </header>
+
+    <div class="dashboard-container">
+
+        <div class="card">
+            <h2>Métricas Promedio de la Conversación</h2>
+            <div class="metric-grid">
+                <div class="metric">
+                    <span>Volumen de Menciones (Count)</span>
+                    <strong>1,198</strong>
+                </div>
+                <div class="metric">
+                    <span>Me Gusta Promedio</span>
+                    <strong>12.2</strong>
+                </div>
+                <div class="metric">
+                    <span>Retweets Promedio</span>
+                    <strong>33.9</strong>
+                </div>
+                <div class="metric">
+                    <span>Seguidores Promedio del Autor</span>
+                    <strong>5,046</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Drivers de Interacción (Correlación)</h2>
+            <div class="correlation-item">
+                Seguidores vs. Me Gusta: <strong>0.374</strong>
+                <p style="font-size: 0.9em; margin: 5px 0 0;">Una correlación positiva media indica que las cuentas con más seguidores son las que generan más 'Me Gusta' en la conversación.</p>
+            </div>
+            <div class="correlation-item">
+                Seguidores vs. Amigos: <strong>0.577</strong>
+                <p style="font-size: 0.9em; margin: 5px 0 0;">Una fuerte correlación indica que los usuarios influyentes tienen una alta conectividad.</p>
+            </div>
+            <div class="correlation-item">
+                Me Gusta vs. Retweets: <strong>0.121</strong>
+                <p style="font-size: 0.9em; margin: 5px 0 0;">La correlación baja sugiere que el agrado (Like) no siempre se traduce en difusión (Retweet).</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Tweets Clave (Máximo Engagement)</h2>
+            <div class="correlation-item">
+                <p style="font-weight: bold;">Tweet ID 1951 (Engagement Total Alto)</p>
+                <p style="font-size: 0.9em; margin: 5px 0 0;">"La señora del café d Tere es la prueba de q trabajando duro se puede llegar a rico..."</p>
+                <p style="font-size: 0.8em; color: var(--green-alert);">Likes: 332 | Retweets: 81</p>
+            </div>
+            <div class="correlation-item">
+                <p style="font-weight: bold;">Tweet ID 932 (Crítica Clave)</p>
+                <p style="font-size: 0.9em; margin: 5px 0 0;">"Que siga sin aceptar tarjetas de crédito es indefendible..."</p>
+                <p style="font-size: 0.8em; color: var(--red-alert);">Likes: 130 | Retweets: 35</p>
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <h2>Momentos de Máximo Impacto (Engagement Diario/Horario)</h2>
+            <p>Identificar las franjas horarias con la mayor suma de engagement para optimizar la monitorización y publicación.</p>
+            <table class="heatmap-table">
+                <thead>
+                    <tr>
+                        <th>Día</th>
+                        <th>00-03h</th>
+                        <th>04-07h</th>
+                        <th>08-11h</th>
+                        <th>12-15h</th>
+                        <th>16-19h</th>
+                        <th>20-23h</th>
+                        <th>Máximo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lunes</td>
+                        <td class="h-cell low">2</td>
+                        <td class="h-cell low">0</td>
+                        <td class="h-cell low">0</td>
+                        <td class="h-cell low">2</td>
+                        <td class="h-cell high">177</td>
+                        <td class="h-cell high">2816</td>
+                        <td style="font-weight: bold;">22:00 (2734)</td>
+                    </tr>
+                    <tr>
+                        <td>Martes</td>
+                        <td class="h-cell medium">53</td>
+                        <td class="h-cell low">3</td>
+                        <td class="h-cell low">2</td>
+                        <td class="h-cell medium">271</td>
+                        <td class="h-cell high">1494</td>
+                        <td class="h-cell high">3578</td>
+                        <td style="font-weight: bold;">22:00 (1555)</td>
+                    </tr>
+                    <tr>
+                        <td>Miércoles</td>
+                        <td class="h-cell high">3899</td>
+                        <td class="h-cell medium">329</td>
+                        <td class="h-cell medium">117</td>
+                        <td class="h-cell medium">289</td>
+                        <td class="h-cell medium">272</td>
+                        <td class="h-cell medium">452</td>
+                        <td style="font-weight: bold;">02:00 (1789)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="card full-width">
+            <h2>Matriz de Prioridades para la Dueña (Temas y Retos)</h2>
+            <p>Acciones inmediatas y estratégicas basadas en el análisis de los tópicos de conversación.</p>
+            <div class="priority-grid">
+                
+                <div class="priority-item red">
+                    <h3>🔴 PRIORITY 1: Fricción en el Cobro</h3>
+                    <p><strong>Tema:</strong> Métodos de pago y fricción en el cobro. Crítica recurrente a no aceptar tarjetas/medios electrónicos.</p>
+                    <p><strong>Acción:</strong> Implementar POS, QR y billeteras locales para reducir la fricción y mejorar la experiencia de visita.</p>
+                </div>
+
+                <div class="priority-item red">
+                    <h3>🔴 PRIORITY 2: Consistencia y Calidad</h3>
+                    <p><strong>Tema:</strong> Calidad y consistencia del sabor. Críticas a 'perdió sazón', 'industrializado', y puntos débiles como el tigrillo.</p>
+                    <p><strong>Acción:</strong> Reforzar estandarización y control sensorial por local (recetas, insumos, temperaturas).</p>
+                </div>
+
+                <div class="priority-item yellow">
+                    <h3>🟡 PRIORITY 3: Precio y Percepción de Valor</h3>
+                    <p><strong>Tema:</strong> Precio y percepción de "sobrevalorado". Menciones frecuentes de caro y porciones pequeñas respecto al precio.</p>
+                    <p><strong>Acción:</strong> Rediseñar la arquitectura de precios y combos. Calibrar gramajes y comunicar la propuesta de valor para justificar el costo.</p>
+                </div>
+
+                <div class="priority-item yellow">
+                    <h3>🟡 PRIORITY 4: Gestión de la Reputación (Polarización)</h3>
+                    <p><strong>Tema:</strong> Polarización y debate social. La conversación está dividida entre ‘lovers’ y ‘haters’ (clase, estatus).</p>
+                    <p><strong>Acción:</strong> Gestionar la reputación con una estrategia de conversación activa para convertir la polémica en equity de marca.</p>
+                </div>
+
+                <div class="priority-item green">
+                    <h3>🟢 OPPORTUNITY 1: Expansión Geográfica</h3>
+                    <p><strong>Tema:</strong> Expansión no atendida. Alta demanda por presencia en Quito/Sierra.</p>
+                    <p><strong>Acción:</strong> Diseñar un plan de expansión (franquicia o piloto) con manuales estrictos de operación, iniciando con pilotos en la Sierra.</p>
+                </div>
+
+                <div class="priority-item green">
+                    <h3>🟢 OPPORTUNITY 2: Storytelling de Impacto</h3>
+                    <p><strong>Tema:</strong> Impacto social y empleo. Amplio reconocimiento a la historia de emprendimiento.</p>
+                    <p><strong>Acción:</strong> Profundizar el storytelling para blindaje reputacional, destacando la generación de empleo y los procesos artesanales.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
