@@ -3,508 +3,620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis de Sentimientos - Café de Tere</title>
+    <title>Dashboard - El Café de Tere</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
-        :root {
-            --primary: #8B4513;
-            --secondary: #D2691E;
-            --light: #F5F5DC;
-            --dark: #3E2723;
-            --positive: #4CAF50;
-            --negative: #F44336;
-            --neutral: #FFC107;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
-            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
         }
-        
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
         }
-        
+
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 30px;
+            text-align: center;
         }
-        
+
         h1 {
-            font-size: 2.5rem;
+            color: #2d3748;
+            font-size: 2.5em;
             margin-bottom: 10px;
+            font-weight: 700;
         }
-        
+
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            color: #718096;
+            font-size: 1.1em;
         }
-        
-        .stats-grid {
+
+        .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-        
-        .stat-card {
+
+        .kpi-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .sentiment-distribution {
-            background: white;
-            border-radius: 10px;
             padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
-        .sentiment-bars {
-            display: flex;
-            height: 40px;
-            border-radius: 20px;
-            overflow: hidden;
-            margin: 20px 0;
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
-        
-        .sentiment-bar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
+
+        .kpi-title {
+            color: #718096;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
-        
-        .sentiment-legend {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-top: 15px;
+
+        .kpi-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin: 5px 10px;
+
+        .kpi-subtitle {
+            color: #a0aec0;
+            font-size: 0.85em;
         }
-        
-        .legend-color {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-        
-        .sentiment-examples {
+
+        .positive { color: #48bb78; }
+        .negative { color: #f56565; }
+        .neutral { color: #4299e1; }
+
+        .chart-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-        
-        .example-card {
+
+        .chart-card {
             background: white;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            min-height: 350px;
+        }
+
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .topics-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .topic-card {
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-radius: 10px;
             border-left: 5px solid;
         }
-        
-        .example-text {
-            margin-bottom: 15px;
-            font-style: italic;
+
+        .topic-card.positive {
+            background: #f0fff4;
+            border-color: #48bb78;
         }
-        
-        .sentiment-tag {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            color: white;
-            font-weight: bold;
-            font-size: 0.8rem;
+
+        .topic-card.negative {
+            background: #fff5f5;
+            border-color: #f56565;
         }
-        
-        .muy-positivo { background-color: var(--positive); border-color: var(--positive); }
-        .positivo { background-color: #8BC34A; border-color: #8BC34A; }
-        .neutral { background-color: var(--neutral); border-color: var(--neutral); color: #333; }
-        .negativo { background-color: #FF9800; border-color: #FF9800; }
-        .muy-negativo { background-color: var(--negative); border-color: var(--negative); }
-        
-        .business-info {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .info-item {
-            padding: 15px;
-            background: var(--light);
-            border-radius: 8px;
-        }
-        
-        .info-item h3 {
-            color: var(--primary);
+
+        .topic-label {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            font-weight: 700;
             margin-bottom: 10px;
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 5px;
+            letter-spacing: 1px;
         }
-        
-        .word-cloud {
+
+        .topic-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+
+        .insights-section {
             background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        
-        .word-cloud-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .word-item {
-            padding: 5px 10px;
-            background: var(--light);
+            padding: 30px;
             border-radius: 15px;
-            font-size: 0.9rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
-        
-        footer {
+
+        .engagement-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .engagement-table thead,
+        .engagement-table tbody {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .engagement-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .engagement-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9em;
+        }
+
+        .engagement-table tr:hover {
+            background: #f7fafc;
+        }
+
+        .engagement-table th:nth-child(1),
+        .engagement-table td:nth-child(1) {
+            width: 55%;
+        }
+
+        .engagement-table th:nth-child(2),
+        .engagement-table td:nth-child(2) {
+            width: 15%;
             text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            color: #666;
-            font-size: 0.9rem;
         }
-        
-        .loading {
+
+        .engagement-table th:nth-child(3),
+        .engagement-table td:nth-child(3) {
+            width: 15%;
             text-align: center;
-            padding: 40px;
-            font-size: 1.2rem;
-            color: var(--primary);
         }
-        
+
+        .engagement-table th:nth-child(4),
+        .engagement-table td:nth-child(4) {
+            width: 15%;
+            text-align: center;
+        }
+
+        .collocation-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .collocation-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: #f7fafc;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border-left: 4px solid #667eea;
+        }
+
+        .collocation-item:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .collocation-name {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1em;
+        }
+
+        .collocation-score {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+        }
+
+        canvas {
+            max-height: 300px !important;
+        }
+
         @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
             h1 {
-                font-size: 2rem;
+                font-size: 1.8em;
             }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .sentiment-examples {
-                grid-template-columns: 1fr;
+
+            .engagement-table {
+                font-size: 0.85em;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Análisis de Sentimientos</h1>
-            <p class="subtitle">Café de Tere - Informe detallado de percepciones del público</p>
-        </div>
-    </header>
-    
     <div class="container">
-        <div id="loading" class="loading">
-            Cargando datos del análisis...
+        <header>
+            <h1>☕ El Café de Tere</h1>
+            <p class="subtitle">Dashboard de Análisis de Sentimiento y Métricas de Negocio</p>
+        </header>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">Net Sentiment Score</div>
+                <div class="kpi-value positive">+6%</div>
+                <div class="kpi-subtitle">Sentimiento ligeramente positivo</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">Total de Tweets</div>
+                <div class="kpi-value neutral">1,199</div>
+                <div class="kpi-subtitle">Conversaciones analizadas</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">Engagement Promedio</div>
+                <div class="kpi-value neutral">12.2</div>
+                <div class="kpi-subtitle">Likes por tweet</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">Alcance Promedio</div>
+                <div class="kpi-value neutral">5,046</div>
+                <div class="kpi-subtitle">Seguidores por usuario</div>
+            </div>
         </div>
-        
-        <div id="content" style="display: none;">
-            <section class="stats-grid">
-                <div class="stat-card">
-                    <h3>Total de Textos Analizados</h3>
-                    <div class="stat-value" id="total-texts">0</div>
-                    <p>Comentarios y menciones en redes sociales</p>
+
+        <div class="topics-section">
+            <h2 class="chart-title">🎯 Tópicos de Mayor Impacto</h2>
+            <div class="topics-grid">
+                <div class="topic-card positive">
+                    <div class="topic-label positive">✅ Top Positivo</div>
+                    <div class="topic-text">Orgullo por el emprendimiento; limpieza y estandarización de locales</div>
                 </div>
-                <div class="stat-card">
-                    <h3>Total de Palabras</h3>
-                    <div class="stat-value" id="total-words">0</div>
-                    <p>En todos los textos analizados</p>
+                <div class="topic-card negative">
+                    <div class="topic-label negative">⚠️ Top Negativo</div>
+                    <div class="topic-text">Precio alto / "sobrevalorado" (relación valor–porción–sabor)</div>
                 </div>
-                <div class="stat-card">
-                    <h3>Fecha de Análisis</h3>
-                    <div class="stat-value" id="analysis-date">-</div>
-                    <p>Última actualización</p>
-                </div>
-            </section>
-            
-            <section class="sentiment-distribution">
-                <h2>Distribución de Sentimientos</h2>
-                <div class="sentiment-bars" id="sentiment-bars">
-                    <!-- Las barras se generarán con JavaScript -->
-                </div>
-                <div class="sentiment-legend" id="sentiment-legend">
-                    <!-- La leyenda se generará con JavaScript -->
-                </div>
-            </section>
-            
-            <section class="business-info">
-                <h2>Información del Negocio</h2>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <h3>Historia del Café de Tere</h3>
-                        <p>El Café de Tere es un emprendimiento ecuatoriano que comenzó como un pequeño negocio familiar y ha crecido hasta convertirse en una cadena reconocida. Su especialidad son los bolones (plato típico ecuatoriano) y otros platos tradicionales.</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Productos Destacados</h3>
-                        <p>• Bolón mixto (verde y maduro)<br>
-                           • Tigrillo<br>
-                           • Ají<br>
-                           • Variedad de cafés y jugos</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Ubicaciones</h3>
-                        <p>Con múltiples locales en Guayaquil, el Café de Tere se ha expandido manteniendo su esencia y calidad. Es especialmente popular para desayunos y almuerzos.</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Percepción de Precios</h3>
-                        <p>Uno de los temas recurrentes en los comentarios es la percepción sobre los precios, con opiniones divididas entre quienes consideran que ofrecen buena relación calidad-precio y quienes los encuentran elevados.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="word-cloud">
-                <h2>Palabras Más Mencionadas</h2>
-                <div class="word-cloud-container" id="word-cloud">
-                    <!-- Las palabras se generarán con JavaScript -->
-                </div>
-            </section>
-            
-            <section class="sentiment-examples">
-                <h2 style="margin-bottom: 20px;">Ejemplos de Comentarios por Categoría</h2>
-                <div id="sentiment-examples">
-                    <!-- Los ejemplos se generarán con JavaScript -->
-                </div>
-            </section>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h3 class="chart-title">📊 Distribución de Engagement</h3>
+                <canvas id="engagementChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="chart-title">🔥 Productos Más Mencionados</h3>
+                <canvas id="productsChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-grid full-width">
+            <div class="chart-card">
+                <h3 class="chart-title">🌐 Correlaciones entre Métricas</h3>
+                <canvas id="correlationChart"></canvas>
+            </div>
+        </div>
+
+        <div class="insights-section full-width">
+            <h2 class="chart-title">💡 Top 10 Tweets con Mayor Engagement</h2>
+            <div style="overflow-x: auto;">
+                <table class="engagement-table">
+                    <thead>
+                        <tr>
+                            <th>Tweet</th>
+                            <th>❤️ Likes</th>
+                            <th>🔄 RTs</th>
+                            <th>📈 Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="engagementTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h3 class="chart-title">🏪 Menciones por Ubicación</h3>
+                <canvas id="locationsChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="chart-title">⚙️ Problemas de Servicio</h3>
+                <canvas id="serviceChart"></canvas>
+            </div>
+        </div>
+
+        <div class="insights-section">
+            <h2 class="chart-title">🔍 Colocaciones Clave del Mercado</h2>
+            <p style="color: #4a5568; margin-bottom: 20px;">Frases y términos más asociados en la conversación:</p>
+            <ul class="collocation-list" id="collocationList"></ul>
         </div>
     </div>
-    
-    <footer>
-        <div class="container">
-            <p>Análisis de sentimientos generado el <span id="footer-date">-</span> | Datos recopilados de redes sociales</p>
-        </div>
-    </footer>
 
     <script>
-        // Configuración de colores para cada sentimiento
-        const sentimentColors = {
-            "muy_positivo": "#4CAF50",
-            "positivo": "#8BC34A",
-            "neutral": "#FFC107",
-            "negativo": "#FF9800",
-            "muy_negativo": "#F44336"
-        };
-        
-        // Configuración de nombres para mostrar
-        const sentimentLabels = {
-            "muy_positivo": "Muy Positivo",
-            "positivo": "Positivo",
-            "neutral": "Neutral",
-            "negativo": "Negativo",
-            "muy_negativo": "Muy Negativo"
-        };
-
-        // Función para cargar y procesar los datos JSON
-        async function loadData() {
-            try {
-                // Cargar el archivo de análisis de sentimientos
-                const response = await fetch('analisis_sentimientos.json');
-                const analysisData = await response.json();
-                
-                // Procesar los datos
-                processAnalysisData(analysisData);
-                
-            } catch (error) {
-                console.error('Error cargando los datos:', error);
-                document.getElementById('loading').innerHTML = 
-                    'Error cargando los datos. Por favor verifica que el archivo JSON esté disponible.';
-            }
-        }
-
-        // Función para procesar los datos del análisis
-        function processAnalysisData(analysisData) {
-            // Ocultar loading y mostrar contenido
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
             
-            // Actualizar estadísticas generales
-            document.getElementById('total-texts').textContent = analysisData.total_texts.toLocaleString();
-            document.getElementById('total-words').textContent = analysisData.total_words.toLocaleString();
-            document.getElementById('analysis-date').textContent = new Date(analysisData.analysis_date).toLocaleDateString('es-ES');
-            document.getElementById('footer-date').textContent = new Date(analysisData.analysis_date).toLocaleDateString('es-ES');
-            
-            // Calcular distribución de sentimientos
-            const sentimentCounts = {
-                "muy_positivo": 0,
-                "positivo": 0,
-                "neutral": 0,
-                "negativo": 0,
-                "muy_negativo": 0
+            // Data from JSON
+            const engagementMatrix = {
+                "33": { text: "@Cesar_Antonio_F @LivePalestina @Jou_Kaiser @tere_marinovic @elvillegaschile @sergioulloa1 @German69738375… https://t.co/0mgrQNJVrU", favorite: 10, retweet: 1, score: 250.0 },
+                "3276": { text: "@dearc26 @eluniversocom Q insoportable estas personas resentidas. Viven amargados! Hay gustos y gustos. El bolón de Tere es rico!", favorite: 79, retweet: 1, score: 86.81 },
+                "3738": { text: "Se acabó el chisme con el #closetdedav y ahora leo twists del #cafedetere... qué tiro guayaquileños todo bien en casa?", favorite: 10, retweet: 3, score: 66.67 },
+                "2198": { text: "@KaritoSoBsc Oe oe oe bien recuerdo que una vez twitteaste qué más barato Te salía comprar un departamento en salin… https://t.co/FL0MGZv9Hx", favorite: 46, retweet: 3, score: 63.89 },
+                "1951": { text: "La señora del café d Tere es la prueba de q trabajando duro se puede llegar a rico. Ella ha demostrado q no es nece… https://t.co/JMNbFy5KLS", favorite: 332, retweet: 81, score: 61.14 },
+                "3608": { text: "Cuando trabajaba en el parque Colón una vez quise ir al #cafedetere que hay ahí vi los precios y me parecieron dema… https://t.co/LP8o8NIHU6", favorite: 1, retweet: 0, score: 33.33 },
+                "3992": { text: "@ornella_soriano @_SantinoBoy @CafedeTere Que comentario tan regionalista... cabeza hueca que piensa que en la sier… https://t.co/cWBukqR7EM", favorite: 1, retweet: 0, score: 33.33 },
+                "3457": { text: "@tere_marinovic En esta crisis, no hay buenos ni malos, se enfrentan entre chilenos, padres y familias. Y todo este… https://t.co/CQsnaeEs8Z", favorite: 7, retweet: 3, score: 19.44 },
+                "2148": { text: "Si el cafe de tere te parece que es caro, turro y puro mkt anda busca otro bolon chtm\nEl ecuatoriano próspero tiene… https://t.co/APCz649NbZ", favorite: 187, retweet: 63, score: 15.58 },
+                "932": { text: "Soy cliente regular del Café de Tere. Ahora bien, que siga sin aceptar tarjetas de crédito es indefendible. Doña Te… https://t.co/jHdbRXcdfa", favorite: 130, retweet: 35, score: 13.31 }
             };
-            
-            analysisData.sentiment_results.forEach(result => {
-                if (sentimentCounts.hasOwnProperty(result.label)) {
-                    sentimentCounts[result.label]++;
-                }
-            });
-            
-            const totalResults = analysisData.sentiment_results.length;
-            
-            // Crear barras de distribución de sentimientos
-            const sentimentBars = document.getElementById('sentiment-bars');
-            const sentimentLegend = document.getElementById('sentiment-legend');
-            
-            sentimentBars.innerHTML = '';
-            sentimentLegend.innerHTML = '';
-            
-            for (const sentiment in sentimentCounts) {
-                const percentage = Math.round((sentimentCounts[sentiment] / totalResults) * 100);
-                
-                // Crear barra
-                const bar = document.createElement('div');
-                bar.className = 'sentiment-bar';
-                bar.style.width = `${percentage}%`;
-                bar.style.backgroundColor = sentimentColors[sentiment];
-                bar.textContent = percentage > 5 ? `${percentage}%` : '';
-                sentimentBars.appendChild(bar);
-                
-                // Crear elemento de leyenda
-                const legendItem = document.createElement('div');
-                legendItem.className = 'legend-item';
-                
-                const colorBox = document.createElement('div');
-                colorBox.className = 'legend-color';
-                colorBox.style.backgroundColor = sentimentColors[sentiment];
-                
-                const label = document.createElement('span');
-                label.textContent = `${sentimentLabels[sentiment]}: ${sentimentCounts[sentiment]} (${percentage}%)`;
-                
-                legendItem.appendChild(colorBox);
-                legendItem.appendChild(label);
-                sentimentLegend.appendChild(legendItem);
-            }
-            
-            // Crear ejemplos de comentarios por categoría
-            createSentimentExamples(analysisData.sentiment_results);
-            
-            // Crear nube de palabras (simulada basada en los textos más comunes)
-            createWordCloud(analysisData.sentiment_results);
-        }
 
-        // Función para crear ejemplos de comentarios
-        function createSentimentExamples(sentimentResults) {
-            const sentimentExamples = document.getElementById('sentiment-examples');
-            sentimentExamples.innerHTML = '';
-            
-            // Agrupar comentarios por sentimiento
-            const commentsBySentiment = {
-                "muy_positivo": [],
-                "positivo": [],
-                "neutral": [],
-                "negativo": [],
-                "muy_negativo": []
-            };
-            
-            sentimentResults.forEach(result => {
-                if (commentsBySentiment.hasOwnProperty(result.label)) {
-                    commentsBySentiment[result.label].push(result);
-                }
-            });
-            
-            // Crear ejemplos para cada categoría (máximo 3 por categoría)
-            for (const sentiment in commentsBySentiment) {
-                const examples = commentsBySentiment[sentiment].slice(0, 3);
-                
-                examples.forEach(example => {
-                    const exampleCard = document.createElement('div');
-                    exampleCard.className = `example-card ${sentiment.replace('_', '-')}`;
-                    
-                    const exampleText = document.createElement('p');
-                    exampleText.className = 'example-text';
-                    // Acortar texto muy largo
-                    const shortText = example.text.length > 150 ? 
-                        example.text.substring(0, 150) + '...' : example.text;
-                    exampleText.textContent = `"${shortText}"`;
-                    
-                    const sentimentTag = document.createElement('div');
-                    sentimentTag.className = `sentiment-tag ${sentiment.replace('_', '-')}`;
-                    sentimentTag.textContent = `${sentimentLabels[sentiment]} (${(example.score * 100).toFixed(1)}%) - ${example.stars}★`;
-                    
-                    exampleCard.appendChild(exampleText);
-                    exampleCard.appendChild(sentimentTag);
-                    sentimentExamples.appendChild(exampleCard);
-                });
-            }
-        }
-
-        // Función para crear una nube de palabras simulada
-        function createWordCloud(sentimentResults) {
-            const wordCloud = document.getElementById('word-cloud');
-            wordCloud.innerHTML = '';
-            
-            // Palabras comunes relacionadas con el Café de Tere (basado en el análisis)
-            const commonWords = [
-                'bolón', 'Tere', 'café', 'rico', 'bueno', 'caro', 'sobrevalorado',
-                'sabor', 'precio', 'servicio', 'tigrillo', 'maduro', 'verde',
-                'mixto', 'calidad', 'limpieza', 'emprendimiento', 'éxito'
+            const products = [
+                { name: "Bolón", count: 340 },
+                { name: "Tigrillo", count: 78 },
+                { name: "Café", count: 26 },
+                { name: "Ají", count: 19 },
+                { name: "Colada morada", count: 11 }
             ];
-            
-            // Agregar palabras a la nube
-            commonWords.forEach(word => {
-                const wordItem = document.createElement('div');
-                wordItem.className = 'word-item';
-                wordItem.textContent = word;
-                wordCloud.appendChild(wordItem);
-            });
-        }
 
-        // Inicializar la carga de datos cuando se carga la página
-        document.addEventListener('DOMContentLoaded', loadData);
+            const locations = [
+                { name: "Guayaquil", count: 42 },
+                { name: "Quito", count: 19 },
+                { name: "Sauces", count: 15 },
+                { name: "Alborada", count: 13 },
+                { name: "Garzota", count: 11 }
+            ];
+
+            const serviceIssues = [
+                { name: "Precios altos", count: 128 },
+                { name: "No aceptan tarjetas", count: 27 },
+                { name: "Atención/servicio", count: 14 },
+                { name: "Delivery", count: 12 },
+                { name: "Limpieza", count: 9 }
+            ];
+
+            const collocations = [
+                { pair: "bolón mixto", score: 28 },
+                { pair: "tigrillo mixto", score: 16 },
+                { pair: "ají delicioso", score: 6 },
+                { pair: "bolón seco", score: 3 },
+                { pair: "productos lácteos", score: 3 }
+            ];
+
+            // 1. Engagement Chart
+            const sortedEngagement = Object.entries(engagementMatrix).sort((a, b) => b[1].score - a[1].score).slice(0, 5);
+            
+            new Chart(document.getElementById('engagementChart'), {
+                type: 'bar',
+                data: {
+                    labels: sortedEngagement.map((_, i) => `Tweet ${i + 1}`),
+                    datasets: [{
+                        label: 'Score de Engagement',
+                        data: sortedEngagement.map(d => d[1].score),
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // 2. Products Chart
+            new Chart(document.getElementById('productsChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: products.map(p => p.name),
+                    datasets: [{
+                        data: products.map(p => p.count),
+                        backgroundColor: [
+                            'rgba(72, 187, 120, 0.8)',
+                            'rgba(66, 153, 225, 0.8)',
+                            'rgba(245, 101, 101, 0.8)',
+                            'rgba(237, 137, 54, 0.8)',
+                            'rgba(159, 122, 234, 0.8)'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { 
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: { size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 3. Correlation Chart
+            new Chart(document.getElementById('correlationChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Seguidores → Likes', 'Amigos → Likes', 'Likes → Retweets'],
+                    datasets: [{
+                        label: 'Coeficiente de Correlación',
+                        data: [0.374, 0.164, 0.121],
+                        backgroundColor: [
+                            'rgba(72, 187, 120, 0.8)',
+                            'rgba(66, 153, 225, 0.8)',
+                            'rgba(159, 122, 234, 0.8)'
+                        ],
+                        borderWidth: 2,
+                        borderColor: [
+                            'rgba(72, 187, 120, 1)',
+                            'rgba(66, 153, 225, 1)',
+                            'rgba(159, 122, 234, 1)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            max: 0.5,
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toFixed(2);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 4. Locations Chart
+            new Chart(document.getElementById('locationsChart'), {
+                type: 'bar',
+                data: {
+                    labels: locations.map(l => l.name),
+                    datasets: [{
+                        label: 'Menciones',
+                        data: locations.map(l => l.count),
+                        backgroundColor: 'rgba(118, 75, 162, 0.8)',
+                        borderColor: 'rgba(118, 75, 162, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // 5. Service Issues Chart
+            new Chart(document.getElementById('serviceChart'), {
+                type: 'bar',
+                data: {
+                    labels: serviceIssues.map(s => s.name),
+                    datasets: [{
+                        label: 'Menciones',
+                        data: serviceIssues.map(s => s.count),
+                        backgroundColor: 'rgba(245, 101, 101, 0.8)',
+                        borderColor: 'rgba(245, 101, 101, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // 6. Engagement Table
+            const tableBody = document.getElementById('engagementTableBody');
+            Object.entries(engagementMatrix).forEach(([key, data]) => {
+                const row = tableBody.insertRow();
+                const truncatedText = data.text.length > 120 ? data.text.substring(0, 120) + '...' : data.text;
+                row.innerHTML = `
+                    <td>${truncatedText}</td>
+                    <td style="text-align: center;">${data.favorite}</td>
+                    <td style="text-align: center;">${data.retweet}</td>
+                    <td style="text-align: center;"><strong>${data.score.toFixed(1)}</strong></td>
+                `;
+            });
+
+            // 7. Collocation List
+            const collocationList = document.getElementById('collocationList');
+            collocations.forEach(col => {
+                const li = document.createElement('li');
+                li.className = 'collocation-item';
+                li.innerHTML = `
+                    <span class="collocation-name">"${col.pair}"</span>
+                    <span class="collocation-score">${col.score}</span>
+                `;
+                collocationList.appendChild(li);
+            });
+        });
     </script>
 </body>
 </html>

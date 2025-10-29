@@ -1,0 +1,314 @@
+{
+    "describe_matrix": {
+        "count": {
+            "favorite_count": 1198.0,
+            "id": 1199.0,
+            "retweet_count": 1198.0,
+            "user.followers_count": 1198.0,
+            "user.friends_count": 1198.0
+        },
+        "mean": {
+            "favorite_count": 12.202003338898164,
+            "id": 1.1909482828284088e+18,
+            "retweet_count": 33.925709515859765,
+            "user.followers_count": 5046.368948247078,
+            "user.friends_count": 1021.626878130217
+        },
+        "std": {
+            "favorite_count": 104.53245995361105,
+            "id": 3.4425044120617452e+16,
+            "retweet_count": 815.0630495614117,
+            "user.followers_count": 72793.23507864912,
+            "user.friends_count": 6446.56499792927
+        },
+        "min": {
+            "favorite_count": 0.0,
+            "id": 167.0,
+            "retweet_count": 0.0,
+            "user.followers_count": 1.0,
+            "user.friends_count": 0.0
+        },
+        "25%": {
+            "favorite_count": 0.0,
+            "id": 1.1918218393786122e+18,
+            "retweet_count": 0.0,
+            "user.followers_count": 186.5,
+            "user.friends_count": 262.0
+        },
+        "50%": {
+            "favorite_count": 0.0,
+            "id": 1.191929775016874e+18,
+            "retweet_count": 0.0,
+            "user.followers_count": 483.0,
+            "user.friends_count": 532.5
+        },
+        "75%": {
+            "favorite_count": 2.0,
+            "id": 1.192133212113404e+18,
+            "retweet_count": 1.0,
+            "user.followers_count": 1377.25,
+            "user.friends_count": 992.75
+        },
+        "max": {
+            "favorite_count": 2733.0,
+            "id": 1.192608404327547e+18,
+            "retweet_count": 28090.0,
+            "user.followers_count": 1997889.0,
+            "user.friends_count": 221536.0
+        }
+    },
+    "corr_matrix": {
+        "user.followers_count": {
+            "user.followers_count": 1.0,
+            "user.friends_count": 0.5770596319321523,
+            "id": -0.14474055631145605,
+            "favorite_count": 0.3743598815158741,
+            "retweet_count": 0.1283469079000893
+        },
+        "user.friends_count": {
+            "user.followers_count": 0.5770596319321523,
+            "user.friends_count": 1.0,
+            "id": -0.09306009552025668,
+            "favorite_count": 0.16383723344715007,
+            "retweet_count": 0.05420889555106655
+        },
+        "id": {
+            "user.followers_count": -0.14474055631145605,
+            "user.friends_count": -0.09306009552025668,
+            "id": 1.0,
+            "favorite_count": -0.1278758415977603,
+            "retweet_count": 0.07590999064439975
+        },
+        "favorite_count": {
+            "user.followers_count": 0.3743598815158741,
+            "user.friends_count": 0.16383723344715007,
+            "id": -0.1278758415977603,
+            "favorite_count": 1.0,
+            "retweet_count": 0.1210178774154952
+        },
+        "retweet_count": {
+            "user.followers_count": 0.1283469079000893,
+            "user.friends_count": 0.05420889555106655,
+            "id": 0.07590999064439975,
+            "favorite_count": 0.1210178774154952,
+            "retweet_count": 1.0
+        }
+    },
+    "engagement_matrix": {
+        "text": {
+            "33": "@Cesar_Antonio_F @LivePalestina @Jou_Kaiser @tere_marinovic @elvillegaschile @sergioulloa1 @German69738375\u2026 https://t.co/0mgrQNJVrU",
+            "3276": "@dearc26 @eluniversocom Q insoportable estas personas resentidas. Viven amargados! Hay gustos y gustos. El bol\u00f3n de Tere es rico!",
+            "3738": "Se acab\u00f3 el chisme con el #closetdedav y ahora leo twists del #cafedetere... qu\u00e9 tiro guayaquile\u00f1os todo bien en casa?",
+            "2198": "@KaritoSoBsc Oe oe oe bien recuerdo que una vez twitteaste qu\u00e9 m\u00e1s barato Te sal\u00eda comprar un departamento en salin\u2026 https://t.co/FL0MGZv9Hx",
+            "1951": "La se\u00f1ora del caf\u00e9 d Tere es la prueba de q trabajando duro se puede llegar a rico. Ella ha demostrado q no es nece\u2026 https://t.co/JMNbFy5KLS",
+            "3608": "Cuando trabajaba en el parque Col\u00f3n una vez quise ir al #cafedetere que hay ah\u00ed vi los precios y me parecieron dema\u2026 https://t.co/LP8o8NIHU6",
+            "3992": "@ornella_soriano @_SantinoBoy @CafedeTere Que comentario tan regionalista... cabeza hueca que piensa que en la sier\u2026 https://t.co/cWBukqR7EM",
+            "3457": "@tere_marinovic En esta crisis, no hay buenos ni malos, se enfrentan entre chilenos, padres y familias. Y todo este\u2026 https://t.co/CQsnaeEs8Z",
+            "2148": "Si el cafe de tere te parece que es caro, turro y puro mkt anda busca otro bolon chtm\nEl ecuatoriano pr\u00f3spero tiene\u2026 https://t.co/APCz649NbZ",
+            "932": "Soy cliente regular del Caf\u00e9 de Tere. Ahora bien, que sig\u00e1 sin aceptar tarjetas de cr\u00e9dito es indefendible. Do\u00f1a Te\u2026 https://t.co/jHdbRXcdfa"
+        },
+        "favorite_count": {
+            "33": 10.0,
+            "3276": 79.0,
+            "3738": 10.0,
+            "2198": 46.0,
+            "1951": 332.0,
+            "3608": 1.0,
+            "3992": 1.0,
+            "3457": 7.0,
+            "2148": 187.0,
+            "932": 130.0
+        },
+        "retweet_count": {
+            "33": 1.0,
+            "3276": 1.0,
+            "3738": 3.0,
+            "2198": 3.0,
+            "1951": 81.0,
+            "3608": 0.0,
+            "3992": 0.0,
+            "3457": 3.0,
+            "2148": 63.0,
+            "932": 35.0
+        },
+        "total_engagement": {
+            "33": 250.0,
+            "3276": 86.81318681318682,
+            "3738": 66.66666666666666,
+            "2198": 63.888888888888886,
+            "1951": 61.141804788213626,
+            "3608": 33.33333333333333,
+            "3992": 33.33333333333333,
+            "3457": 19.444444444444446,
+            "2148": 15.583333333333332,
+            "932": 13.30603889457523
+        }
+    },
+    "topics": {
+        "business_metrics": {
+            "net_sentiment_score": 0.06,
+            "top_negative_topic": "Precio alto / \u201csobrevalorado\u201d (relaci\u00f3n valor\u2013porci\u00f3n\u2013sabor)",
+            "top_positive_topic": "Orgullo por el emprendimiento; limpieza y estandarizaci\u00f3n de locales"
+        },
+        "data_quality_summary": {
+            "dominant_outlier_type": "Retuits en cadena y memes duplicados (ruido no org\u00e1nico)"
+        },
+        "sample_analysis_details": [
+            {
+                "sentiment_label": "POSITIVO",
+                "driving_topic": "Producto ic\u00f3nico / lealtad de marca",
+                "original_text": "Larga vida al bol\u00f3n mixto de maduro de Tere."
+            },
+            {
+                "sentiment_label": "NEGATIVO",
+                "driving_topic": "Calidad y saz\u00f3n (tigrillo)",
+                "original_text": "No me gusta el tigrillo del Caf\u00e9 de Tere; es muy \u2018sopudo\u2019."
+            },
+            {
+                "sentiment_label": "NEGATIVO",
+                "driving_topic": "Precio y valor percibido",
+                "original_text": "El caf\u00e9 de Tere es caro/sobrevalorado; hay mejores y m\u00e1s baratos."
+            },
+            {
+                "sentiment_label": "POSITIVO",
+                "driving_topic": "Limpieza y estandarizaci\u00f3n",
+                "original_text": "Por trabajo estuve en sus cocinas: parecen quir\u00f3fanos."
+            },
+            {
+                "sentiment_label": "NEGATIVO",
+                "driving_topic": "Medios de pago",
+                "original_text": "Que sigan sin aceptar tarjetas de cr\u00e9dito es indefendible."
+            },
+            {
+                "sentiment_label": "NEUTRO",
+                "driving_topic": "Competencia / pluralidad de oferta",
+                "original_text": "Hay 2 o 3 opciones mejores que Caf\u00e9 de Tere, pero \u00bfpara qu\u00e9 hacer pedazos a la se\u00f1ora?"
+            },
+            {
+                "sentiment_label": "POSITIVO",
+                "driving_topic": "Marca / caso de \u00e9xito",
+                "original_text": "Ejemplo de emprendimiento que gener\u00f3 empleo y posicion\u00f3 un plato t\u00edpico."
+            },
+            {
+                "sentiment_label": "NEGATIVO",
+                "driving_topic": "Delivery y condiciones de pedido",
+                "original_text": "Para domicilio me exig\u00edan m\u00ednimo de $17 por dos bolones."
+            },
+            {
+                "sentiment_label": "POSITIVO",
+                "driving_topic": "Producto valorizado (tigrillo/aj\u00ed)",
+                "original_text": "El tigrillo y el aj\u00ed de Tere son una delicia."
+            },
+            {
+                "sentiment_label": "NEGATIVO",
+                "driving_topic": "Consistencia con expansi\u00f3n",
+                "original_text": "El bol\u00f3n es \u2018normalito\u2019 y caro; perdi\u00f3 saz\u00f3n con la industrializaci\u00f3n."
+            },
+            {
+                "sentiment_label": "POSITIVO",
+                "driving_topic": "Experiencia en local / propuesta de valor",
+                "original_text": "Los precios se justifican por servicio, limpieza y buenos ingredientes."
+            },
+            {
+                "sentiment_label": "NEUTRO",
+                "driving_topic": "Saturaci\u00f3n de conversaci\u00f3n / polarizaci\u00f3n",
+                "original_text": "Dejen de pelear por el bol\u00f3n de Tere; coman donde quieran."
+            }
+        ],
+        "next_steps_recommendation": "Hallazgos: la conversaci\u00f3n est\u00e1 polarizada entre \u2018lovers\u2019 y \u2018haters\u2019. Las tem\u00e1ticas dominantes son: 1) precio/valor, 2) calidad y consistencia (tigrillo, chicharr\u00f3n, queso), 3) m\u00e9todos de pago (no aceptan tarjetas), 4) experiencia en local (limpieza, filas, AC, bandejas), 5) orgullo de marca y emprendimiento, 6) alternativas/competencia y 7) delivery y m\u00ednimos de compra. Recomendaciones clave: 1) Precio y valor: lanzar combos con ticket medio defensivo (ej. bol\u00f3n + bebida), porciones M/L, comunicar gramajes/ingredientes y origen, crear \u2018Bol\u00f3n del d\u00eda\u2019 con precio atractivo en horas valle. 2) Calidad/consistencia: auditor\u00edas sensoriales semanales por producto (tigrillo, chicharr\u00f3n, queso), control de grasas (evitar sabor a margarina), est\u00e1ndares de temperatura/tiempo de pase, plan de mejora del caf\u00e9. 3) Pagos y conveniencia: habilitar tarjetas, d\u00e9bito y wallets (NFC/QR), piloto de pago en mesa/auto, revisar m\u00ednimos de delivery y sumar pick-up sin recargo; programa de lealtad con sellos digitales. 4) Comunicaci\u00f3n y reputaci\u00f3n: reforzar storytelling (origen, empleo local, higiene), gu\u00edas visuales de porci\u00f3n y valor, social listening con protocolo de respuesta (humor y data), activar embajadores (clientes y chefs) y hacer catas a ciegas \u2018Tere vs. mercado\u2019 en redes. 5) Producto y upsell: embotellar y vender el aj\u00ed (retail), packs desayuno, opci\u00f3n \u2018medio bol\u00f3n\u2019, versi\u00f3n ligera (menos grasa), bundles familiares; revisar cobros percibidos como \u2018nickel and dime\u2019 (huevo/jugos). 6) Experiencia en local: gesti\u00f3n de filas y tiempos (objetivo <8 min), se\u00f1alizaci\u00f3n sobre bandejas y autoservicio, evaluaci\u00f3n de confort (AC) por local, reforzar entrenamiento de sala. 7) Expansi\u00f3n y formato: piloto dark kitchen en Quito y mercado andino con QA estricto; explorar franquicias controladas y pop-ups por temporada. 8) M\u00e9tricas: NPS por producto y local, tasa de recompra, % quejas por tema (precio/pago/calidad), adopci\u00f3n de pagos electr\u00f3nicos, tiempos de servicio y conversi\u00f3n de campa\u00f1as. Acciones r\u00e1pidas (30-60 d\u00edas): habilitar al menos un m\u00e9todo de pago electr\u00f3nico por local, combo ancla \u2018Bol\u00f3n + bebida\u2019 a precio redondo, relanzamiento del tigrillo con mejoras y cata p\u00fablica, campa\u00f1a \u2018Semana del Bol\u00f3n\u2019 para convertir la tendencia en tr\u00e1fico y escucha activa con reportes quincenales a gerencia."
+    },
+    "collocation_report": {
+        "top_collocations": [
+            {
+                "pair": "bol\u00f3n mixto",
+                "relevance_score": 28
+            },
+            {
+                "pair": "tigrillo mixto",
+                "relevance_score": 16
+            },
+            {
+                "pair": "aj\u00ed delicioso",
+                "relevance_score": 6
+            },
+            {
+                "pair": "bol\u00f3n seco",
+                "relevance_score": 3
+            },
+            {
+                "pair": "productos l\u00e1cteos",
+                "relevance_score": 3
+            }
+        ],
+        "strategic_insight": "Las menciones m\u00e1s fuertes giran en torno a los \u201cmixtos\u201d (bol\u00f3n y tigrillo), que son los h\u00e9roes de la carta: conviene reforzarlos como productos insignia, paquetizarlos y destacarlos en comunicaci\u00f3n. El \u201caj\u00ed delicioso\u201d es un atributo positivo y diferencial; capital\u00edcelo (estandarizaci\u00f3n, posible envasado/venta). Los puntos de dolor: \u201cbol\u00f3n seco\u201d y el uso de \u201cproductos l\u00e1cteos\u201d (percibido como exceso que resta autenticidad a platos t\u00edpicos). Aborde esto con controles de humedad/salseo del bol\u00f3n y opciones personalizables (con/sin l\u00e1cteos) para proteger la promesa de sabor tradicional sin sacrificar consistencia."
+    },
+    "relevant_entities": {
+        "product_entities": [
+            {
+                "name": "Bol\u00f3n",
+                "count": 340
+            },
+            {
+                "name": "Tigrillo",
+                "count": 78
+            },
+            {
+                "name": "Caf\u00e9 (bebida)",
+                "count": 26
+            },
+            {
+                "name": "Aj\u00ed",
+                "count": 19
+            },
+            {
+                "name": "Colada morada",
+                "count": 11
+            }
+        ],
+        "service_entities": [
+            {
+                "name": "Precios altos / sobrevalorado",
+                "count": 128
+            },
+            {
+                "name": "No aceptan tarjetas de cr\u00e9dito",
+                "count": 27
+            },
+            {
+                "name": "Atenci\u00f3n / servicio",
+                "count": 14
+            },
+            {
+                "name": "Delivery / pedidos a domicilio (m\u00ednimo / costo)",
+                "count": 12
+            },
+            {
+                "name": "Limpieza de los locales",
+                "count": 9
+            }
+        ],
+        "location_entities": [
+            {
+                "name": "Guayaquil (GYE)",
+                "count": 42
+            },
+            {
+                "name": "Quito",
+                "count": 19
+            },
+            {
+                "name": "Sauces (sector)",
+                "count": 15
+            },
+            {
+                "name": "Alborada (sector)",
+                "count": 13
+            },
+            {
+                "name": "Garzota (sector)",
+                "count": 11
+            }
+        ],
+        "strategic_summary": "El volumen de menciones confirma que el \u201cBol\u00f3n\u201d es el producto emblema y concentra la mayor parte del inter\u00e9s; el \u201cTigrillo\u201d es el segundo ancla del men\u00fa, pero recibe comentarios mixtos, por lo que conviene estandarizar su receta y comunicaci\u00f3n del valor. En servicio, dos fricciones dominan: percepci\u00f3n de precio alto/sobrevalorado y la ausencia de pagos con tarjeta. Mitigar estas barreras (aceptaci\u00f3n de pagos electr\u00f3nicos, combos de valor/porciones diferenciadas y mensajes de calidad e higiene) puede convertir conversaci\u00f3n negativa en conversi\u00f3n. Limpieza y atenci\u00f3n aparecen como atributos positivos a reforzar en la comunicaci\u00f3n. Por localizaci\u00f3n, la marca se asocia fuertemente a Guayaquil (norte: Sauces, Alborada, Garzota) y existe demanda latente en Quito; evaluar pop-ups o alianzas de temporada en la Sierra reducir\u00eda el costo de prueba y ampliar\u00eda cobertura. En delivery, revisar m\u00ednimos y tarifas por zona puede mejorar la intenci\u00f3n de pedido. En s\u00edntesis: defender el liderazgo del bol\u00f3n, elevar y uniformar la experiencia del tigrillo, habilitar tarjetas/datafast, empaquetar valor y explorar expansi\u00f3n t\u00e1ctica hacia Quito manteniendo el est\u00e1ndar de limpieza y servicio que la comunidad ya reconoce."
+    }
+}
